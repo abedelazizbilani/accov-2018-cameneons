@@ -35,11 +35,7 @@ public class ChameleonsSimulation {
         Forest forest = new Forest();
         // create chemeleons from the static array
         for (int i = 0 ;i<colors.length;i++){
-            chameleons[i] = new Chameleon(forest,new ChameleonId(i), colors[i]);
-        }
-        for (int i = 0; i<chameleons.length;i++){
-            chameleons[i].call();
+            (new Thread (new Chameleon(forest,new ChameleonId(i), colors[i]))).start();
         }
     }
-
 }

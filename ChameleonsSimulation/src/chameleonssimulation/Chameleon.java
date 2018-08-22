@@ -5,13 +5,11 @@
  */
 package chameleonssimulation;
 
-import java.util.concurrent.Callable;
-
 /**
  * In this class i am creating a chameleon object that implements 
  * @author Abed Bilani
  */
-public class Chameleon implements Callable<String> {
+public class Chameleon implements Runnable {
 
     private Forest forest;
     private ChameleonId id;
@@ -55,7 +53,7 @@ public class Chameleon implements Callable<String> {
     }
     
     @Override
-    public String call(){
+    public void run(){
         while (true){
             this.eat();
             this.goingToForest();
