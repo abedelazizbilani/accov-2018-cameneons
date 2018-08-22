@@ -39,6 +39,14 @@ public class Chameleon implements Callable<String> {
     // muutation behavior
     public void mutate() {
         this.currentBehavior("i am going to mutate");
+        // get the color of the other chameleon in the forest
+        otherChameleonColor = forest.chameleonMeeting(id, myColor);
+        // change my color according to the other chameleon color
+        // the mutation happens here
+        myColor = myColor.changeColor(otherChameleonColor);
+        // done mutating
+        System.out.println("I am done mutating");
+        
     }
 
     // going to forest to mutate

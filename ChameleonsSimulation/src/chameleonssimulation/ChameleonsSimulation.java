@@ -11,11 +11,35 @@ package chameleonssimulation;
  */
 public class ChameleonsSimulation {
 
+    static ChameleonColor[] colors = {
+        ChameleonColor.BLUE,
+        ChameleonColor.RED,
+        ChameleonColor.YELLOW,
+        ChameleonColor.BLUE,
+        ChameleonColor.BLUE,
+        ChameleonColor.RED,
+        ChameleonColor.YELLOW,
+        ChameleonColor.RED,
+        ChameleonColor.YELLOW,
+        ChameleonColor.BLUE
+    };
+    // create an array of type chameleon
+    static Chameleon[] chameleons = new Chameleon[colors.length];
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //create meetup location aka forest
+        Forest forest = new Forest();
+        // create chemeleons from the static array
+        for (int i = 0 ;i<colors.length;i++){
+            chameleons[i] = new Chameleon(forest,new ChameleonId(i), colors[i]);
+        }
+        for (int i = 0; i<chameleons.length;i++){
+            chameleons[i].call();
+        }
     }
-    
+
 }
