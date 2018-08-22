@@ -6,7 +6,8 @@
 package chameleonssimulation;
 
 /**
- * In this class i am creating a chameleon object that implements 
+ * In this class i am creating a chameleon object that implements
+ *
  * @author Abed Bilani
  */
 public class Chameleon implements Runnable {
@@ -38,23 +39,23 @@ public class Chameleon implements Runnable {
     public void mutate() {
         this.currentBehavior("i am going to mutate");
         // get the color of the other chameleon in the forest
-        otherChameleonColor = forest.chameleonMeeting(id, myColor);
+        otherChameleonColor = forest.chameleonMeeting(this.id, myColor);
         // change my color according to the other chameleon color
         // the mutation happens here
         myColor = myColor.changeColor(otherChameleonColor);
         // done mutating
         System.out.println("I am done mutating");
-        
+
     }
 
     // going to forest to mutate
     public void goingToForest() {
         this.currentBehavior("i am going to the forest");
     }
-    
+
     @Override
-    public void run(){
-        while (true){
+    public void run() {
+        while (true) {
             this.eat();
             this.goingToForest();
             this.mutate();

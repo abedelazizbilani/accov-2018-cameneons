@@ -25,7 +25,7 @@ public class ChameleonColor {
     *   a constructor for the chameleon color
      */
     public ChameleonColor(int colorNumber) {
-        this.interiorColor = colorNumber;
+        this.interiorColor = colorNumber %3;
     }
 
     /**

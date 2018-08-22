@@ -17,5 +17,9 @@ public class ChameleonId {
     public ChameleonId(int id) {
         chamId = id;
     }
+    
+      public String toString(){
+        return "Cameneon-"+this.chamId;
+    }
 
 }
