@@ -17,9 +17,5 @@ public class ChameleonId {
     public ChameleonId(int id) {
         chamId = id;
     }
-// convert int to string
-    public String toString() {
-        return chamId + "";
-    }
 
 }
