@@ -5,6 +5,7 @@
  */
 package peartopearsimulation;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
@@ -13,11 +14,19 @@ import java.util.List;
  * @author Abed Bilani
  */
 public class ServerThread implements Runnable {
-    
-    public ServerThread(Socket serverSocket,List<Chameleon> chameleonList){
+
+    private final Chameleon chameleon;
+    private final List<Chameleon> chameleonList;
+
+    public ServerThread(Socket socket, List<Chameleon> chameleonList) throws IOException {
+        chameleon = new Chameleon(socket);
+        this.chameleonList = chameleonList;
+        chameleonList.add(chameleon);
+        
+        
         
     }
-    
+
     @Override
     public void run() {
 
