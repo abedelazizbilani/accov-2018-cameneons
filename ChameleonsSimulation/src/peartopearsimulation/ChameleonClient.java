@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,12 +22,7 @@ import java.util.logging.Logger;
  *
  * @author abed.bilani
  */
-public class ChameleonClient implements Runnable {
-
-    // properties
-    private String color;
-    private final PrintWriter write;
-    private final BufferedReader read;
+public class ChameleonClient {
 
     private static BufferedReader inputStream(InputStream inputStream) throws IOException {
         return new BufferedReader(new InputStreamReader(inputStream));
@@ -40,23 +36,29 @@ public class ChameleonClient implements Runnable {
         return new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
     }
 
-    public ChameleonClient(BufferedReader read, PrintWriter write, String color) {
-        this.color = color;
-        this.read = read;
-        this.write = write;
-    }
-
     // add buffers to read and write to the socket
     // main class in which we will launch a thread and connect to server socket
     public static void main(String[] args) throws IOException {
-
+        Socket socket = null;
         try {
-            Socket socket = new Socket("localhost", 1308);
+            socket = new Socket("localhost", 1308);
             BufferedReader read = readFromSocket(socket);
             PrintWriter write = writeToSocket(socket);
-            Thread socketThread = new Thread(new ChameleonClient(read, write, color));
-
+            Scanner sc = new Scanner(System.in);
+            String chameleonColor;
+            do {
+                System.out.println("provide a valid color for the chameleon");
+                System.out.println("choose between Red , Blue or Yellow");
+                System.out.println("note : case sensitive");
+                chameleonColor = sc.nextLine();
+            } while ((!chameleonColor.equals("Red")) || (!chameleonColor.equals("Blue")) || (!chameleonColor.equals("Yellow")));
+            Thread socketThread = new Thread(new ChameleonProp(read, write, chameleonColor));
+            socketThread.start();
         } catch (Exception e) {
+        } finally {
+            if (socket != null) {
+                socket.close();
+            }
         }
 
     }

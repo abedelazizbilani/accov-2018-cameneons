@@ -9,14 +9,16 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * in this class we will add a server for sockets
- * all chameleons will connect to this socket and will launch a new thread
+ * in this class we will add a server for sockets all chameleons will connect to
+ * this socket and will launch a new thread
+ *
  * @author abed.bilani
  */
 public class ChameleonServer {
-    
+
     // add main 
     // in main launch server socket 
     // accept clients 
@@ -30,10 +32,14 @@ public class ChameleonServer {
     public static void runSocket() throws IOException, ClassNotFoundException {
         // creating server sockets
         ServerSocket serverSocket = new ServerSocket(1308);
+        List<Chameleon> clientList = new List<Chameleon>();
 
         System.out.println("Server up and ready for connections .....");
         while (true) {
-            Socket cs = serverSocket.accept();
+            // launch server on a new thread using class Server Thread
+            // and send server socket along with chameleon list new instance to be able to add a new client
+            Socket clientSocket = serverSocket.accept();
+            Thread serverThread = new Thread(new ServerThread(clientSocket, clientList));
             System.out.println("socket created");
         }
     }
