@@ -16,14 +16,12 @@ import java.util.List;
 public class ServerThread implements Runnable {
 
     private final Chameleon chameleon;
-    private final List<Chameleon> chameleonList;
+    private final ChameleonList chameleonList;
 
-    public ServerThread(Socket socket, List<Chameleon> chameleonList) throws IOException {
+    public ServerThread(Socket socket, ChameleonList chameleonList) throws IOException {
         chameleon = new Chameleon(socket);
         this.chameleonList = chameleonList;
         chameleonList.add(chameleon);
-        
-        
         
     }
 

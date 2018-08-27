@@ -32,7 +32,7 @@ public class ChameleonServer {
     public static void runSocket() throws IOException, ClassNotFoundException {
         // creating server sockets
         ServerSocket serverSocket = new ServerSocket(1308);
-        List<Chameleon> clientList = new List<Chameleon>();
+        ChameleonList clientList = new ChameleonList();
 
         System.out.println("Server up and ready for connections .....");
         while (true) {
