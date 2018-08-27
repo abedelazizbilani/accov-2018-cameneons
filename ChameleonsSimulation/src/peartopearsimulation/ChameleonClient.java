@@ -5,15 +5,59 @@
  */
 package peartopearsimulation;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- * in this we will create a client class in which we will connect to main server 
- * 
+ * in this we will create a client class in which we will connect to main server
+ * and launch a new thread
+ *
  * @author abed.bilani
  */
-public class ChameleonClient {
-    
+public class ChameleonClient implements Runnable {
+
+    // properties
+    private String color;
+    private final PrintWriter write;
+    private final BufferedReader read;
+
+    private static BufferedReader inputStream(InputStream inputStream) throws IOException {
+        return new BufferedReader(new InputStreamReader(inputStream));
+    }
+
+    private static BufferedReader readFromSocket(Socket socket) throws IOException {
+        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    }
+
+    private static PrintWriter writeToSocket(Socket socket) throws IOException {
+        return new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+    }
+
+    public ChameleonClient(BufferedReader read, PrintWriter write, String color) {
+        this.color = color;
+        this.read = read;
+        this.write = write;
+    }
+
     // add buffers to read and write to the socket
-    
     // main class in which we will launch a thread and connect to server socket
-    
+    public static void main(String[] args) throws IOException {
+
+        try {
+            Socket socket = new Socket("localhost", 1308);
+            BufferedReader read = readFromSocket(socket);
+            PrintWriter write = writeToSocket(socket);
+            Thread socketThread = new Thread(new ChameleonClient(read, write, color));
+
+        } catch (Exception e) {
+        }
+
+    }
 }
