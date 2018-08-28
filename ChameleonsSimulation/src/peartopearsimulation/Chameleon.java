@@ -27,6 +27,13 @@ public class Chameleon {
     private final BufferedReader reader;
     private final PrintWriter writer;
 
+    public Chameleon(Socket socket) throws IOException {
+        chameleonSocket = socket;
+        reader = getInput(socket);
+        writer = getOutput(socket);
+        color = null;
+    }
+
     // add reader and writer 
     // getters and setters
     public String getColor() {
@@ -61,10 +68,4 @@ public class Chameleon {
         return new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
     }
 
-    public Chameleon(Socket socket) throws IOException {
-        chameleonSocket = socket;
-        reader = getInput(socket);
-        writer = getOutput(socket);
-        color = null;
-    }
 }

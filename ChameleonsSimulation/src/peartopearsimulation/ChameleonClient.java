@@ -54,6 +54,7 @@ public class ChameleonClient {
             } while (checkColor(chameleonColor));
             Thread socketThread = new Thread(new ChameleonProp(read, write, chameleonColor));
             socketThread.start();
+            socketThread.join();
         } catch (Exception e) {
         } finally {
             if (socket != null) {

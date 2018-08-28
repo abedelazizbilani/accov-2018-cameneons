@@ -25,8 +25,8 @@ public class ChameleonServer {
     // and start a thread
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         // create a chameleon list to add connecting clients to
-        ArrayList<ChameleonClient> list = new ArrayList<ChameleonClient>();
-        new ChameleonServer().runSocket();
+        ArrayList<ChameleonClient> list = new ArrayList<>();
+        ChameleonServer.runSocket();
     }
 
     public static void runSocket() throws IOException, ClassNotFoundException {
@@ -40,6 +40,8 @@ public class ChameleonServer {
             // and send server socket along with chameleon list new instance to be able to add a new client
             Socket clientSocket = serverSocket.accept();
             Thread serverThread = new Thread(new ServerThread(clientSocket, clientList));
+            serverThread.setDaemon(true);
+            serverThread.start();
             System.out.println("socket created");
         }
     }

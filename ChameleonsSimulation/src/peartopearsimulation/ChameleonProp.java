@@ -30,5 +30,20 @@ public class ChameleonProp implements Runnable {
     @Override
     public void run() {
         // need to implement the behavior and mutation for the chameleon like the first solution in a different way
+        while (true) {
+            try {
+                System.out.println("i am eating");
+                System.out.println("i am going to the forest");
+                System.out.println("i am going to mutate my color is " + color);
+                write.printf(color);
+                write.flush();
+                if(read.readLine() != null){
+                    this.color = read.readLine();
+                    System.out.println("mutation done my color is : " + color);
+                }
+            } catch (Exception e) {
+            }
+        }
+
     }
 }
