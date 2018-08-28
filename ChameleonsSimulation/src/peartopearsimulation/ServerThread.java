@@ -21,9 +21,9 @@ public class ServerThread implements Runnable {
     private final ChameleonList chameleonList;
 
     public ServerThread(Socket socket, ChameleonList chameleonList) throws IOException {
-        chameleon = new Chameleon(socket);
+        this.chameleon = new Chameleon(socket);
         this.chameleonList = chameleonList;
-        chameleonList.add(chameleon);
+        this.chameleonList.add(chameleon);
         
     }
 
@@ -31,16 +31,23 @@ public class ServerThread implements Runnable {
     public void run() {
         String colorString;
         try {
-            while(!(colorString = chameleon.getReader().readLine()).equals(".")){
+            while(!(colorString = this.chameleon.getReader().readLine()).equals(".")){
                 if(chameleonList.getCount()==0){
-                    chameleon.setColor(colorString);
-                    chameleonList.incrementCount();
+                    this.chameleon.setColor(colorString);
+                    this.chameleonList.incrementCount();
                 }else{
-                    chameleonList.mutate(chameleon, colorString);
+                    this.chameleonList.mutate(this.chameleon, colorString);
                 }
             }
+            this.chameleon.getWriter().printf(".\n");
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                this.chameleonList.remove(this.chameleon);
+            } catch (IOException ex) {
+                Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

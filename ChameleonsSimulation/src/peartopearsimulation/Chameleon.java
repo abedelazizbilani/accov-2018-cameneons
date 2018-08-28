@@ -59,11 +59,11 @@ public class Chameleon {
     public PrintWriter getWriter() {
         return writer;
     }
-
+    // read from socket to get colot
     final BufferedReader getInput(Socket socket) throws IOException {
         return new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
-
+    // write to socket the color
     final PrintWriter getOutput(Socket socket) throws IOException {
         return new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
     }
