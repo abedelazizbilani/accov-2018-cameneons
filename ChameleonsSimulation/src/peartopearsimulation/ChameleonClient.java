@@ -40,18 +40,18 @@ public class ChameleonClient {
     // main class in which we will launch a thread and connect to server socket
     public static void main(String[] args) throws IOException {
         Socket socket = null;
+        String chameleonColor = "";
         try {
             socket = new Socket("localhost", 1308);
             BufferedReader read = readFromSocket(socket);
             PrintWriter write = writeToSocket(socket);
             Scanner sc = new Scanner(System.in);
-            String chameleonColor;
             do {
                 System.out.println("provide a valid color for the chameleon");
                 System.out.println("choose between Red , Blue or Yellow");
                 System.out.println("note : case sensitive");
                 chameleonColor = sc.nextLine();
-            } while ((!chameleonColor.equals("Red")) || (!chameleonColor.equals("Blue")) || (!chameleonColor.equals("Yellow")));
+            } while (checkColor(chameleonColor));
             Thread socketThread = new Thread(new ChameleonProp(read, write, chameleonColor));
             socketThread.start();
         } catch (Exception e) {
@@ -61,5 +61,18 @@ public class ChameleonClient {
             }
         }
 
+    }
+
+    public static boolean checkColor(String col) {
+        if (col.equals("")) {
+            return false;
+        } else if (!col.equals("Red")) {
+            return false;
+        } else if (!col.equals("Blue")) {
+            return false;
+        } else if (!col.equals("Yellow")) {
+            return false;
+        }
+        return true;
     }
 }
