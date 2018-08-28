@@ -19,10 +19,7 @@ import java.util.List;
 public class ChameleonList {
 
     List<Chameleon> chameleonsList;
-
-    public ChameleonList() {
-        chameleonsList = new ArrayList<>();
-    }
+    int count;
 
     // the mutaion will happen here after we loop through the list
     public synchronized void mutate(Chameleon chameleon, String color) {
@@ -61,13 +58,25 @@ public class ChameleonList {
     public void add(Chameleon chameleon) {
         chameleonsList.add(chameleon);
     }
-    
+
     // method to remove a chameleon from list 
-    public void remove(Chameleon chameleon) throws IOException{
+    public void remove(Chameleon chameleon) throws IOException {
         // close reader and writer and the socket before removing
         chameleon.getReader().close();
         chameleon.getWriter().close();
         chameleon.getChameleonSocket().close();
         chameleonsList.remove(chameleon);
+    }
+
+    public ChameleonList() {
+        chameleonsList = new ArrayList<>();
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void incrementCount() {
+        count++;
     }
 }

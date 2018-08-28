@@ -8,6 +8,8 @@ package peartopearsimulation;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +29,18 @@ public class ServerThread implements Runnable {
 
     @Override
     public void run() {
-
+        String colorString;
+        try {
+            while(!(colorString = chameleon.getReader().readLine()).equals(".")){
+                if(chameleonList.getCount()==0){
+                    chameleon.setColor(colorString);
+                    chameleonList.incrementCount();
+                }else{
+                    chameleonList.mutate(chameleon, colorString);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

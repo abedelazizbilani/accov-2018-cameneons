@@ -49,8 +49,8 @@ public class ChameleonClient {
             do {
                 System.out.println("provide a valid color for the chameleon");
                 System.out.println("choose between Red , Blue or Yellow");
-                System.out.println("note : case sensitive");
                 chameleonColor = sc.nextLine();
+                chameleonColor = chameleonColor.substring(0, 1).toUpperCase() + chameleonColor.substring(1);
             } while (checkColor(chameleonColor));
             Thread socketThread = new Thread(new ChameleonProp(read, write, chameleonColor));
             socketThread.start();
@@ -65,15 +65,6 @@ public class ChameleonClient {
     }
 
     public static boolean checkColor(String col) {
-        if (col.equals("")) {
-            return false;
-        } else if (!col.equals("Red")) {
-            return false;
-        } else if (!col.equals("Blue")) {
-            return false;
-        } else if (!col.equals("Yellow")) {
-            return false;
-        }
-        return true;
+        return (col.equals("Red") || col.equals("Blue") || col.equals("Yellow"));
     }
 }
